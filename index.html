@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Archive</title>
+    <title>Task Archive: To-Do Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="app">
-        <h2>Task Archive</h2>
-        <textarea id="noteInput" placeholder="Archive a new thought..."></textarea>
-        <button id="saveBtn">Store in Archive</button>
+    <div id="todo-app">
+        <h2>Task Archive: To-Do Edition</h2>
         
-        <div id="notesDisplay">
-            </div>
+        <div class="input-section">
+            <input type="text" id="todoInput" placeholder="Enter a task...">
+            <button id="addBtn">Add Task</button>
+        </div>
+
+        <ul id="todoList">
+            </ul>
     </div>
 
     <script src="script.js"></script>
