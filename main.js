@@ -34,3 +34,10 @@ window.setFilter = (newFilter) => {
     appState.filter = newFilter;
     renderTodos(appState.todos, appState.filter, 'todoList');
 };
+
+
+// This "exposes" the function so the HTML can find it again
+window.setFilter = (newFilter) => {
+    appState.filter = newFilter;
+    renderTodos(appState.todos, appState.filter, 'todoList');
+};
