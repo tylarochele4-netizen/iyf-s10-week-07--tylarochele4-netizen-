@@ -1,4 +1,4 @@
-// --- CONFIGURATION ---
+/* // --- CONFIGURATION ---
 const TODO_KEY = "todos_archive";
 
 // --- TASK 13.2: PERSISTENT TO-DO (LocalStorage) ---
@@ -72,4 +72,126 @@ contactForm.addEventListener("submit", (e) => {
 });
 
 // Initial Render
-renderTodos();
+renderTodos(); */
+
+
+// ==========================================
+// TASK 13.4: STATE MANAGEMENT (The "Brain")
+// ==========================================
+
+// 1. The Single Source of Truth
+const appState = {
+    // Load tasks from LocalStorage (Permanent)
+    todos: JSON.parse(localStorage.getItem("todos_archive")) || [],
+    // Current filter view
+    filter: 'all' 
+};
+
+// 2. The Engine: This function handles SAVING and UPDATING the screen
+function syncAndRender() {
+    // A. Persist the current tasks to LocalStorage (Task 13.2)
+    localStorage.setItem("todos_archive", JSON.stringify(appState.todos));
+    
+    // B. Select the list and clear it
+    const todoList = document.getElementById('todoList');
+    todoList.innerHTML = "";
+
+    // C. Filter Logic (Task 13.4)
+    const filteredTodos = appState.todos.filter(todo => {
+        if (appState.filter === 'active') return !todo.completed;
+        if (appState.filter === 'completed') return todo.completed;
+        return true; // 'all'
+    });
+
+    // D. Build the UI based on the filtered state
+    filteredTodos.forEach(todo => {
+        const li = document.createElement('li');
+        if (todo.completed) li.classList.add('completed');
+        
+        // Inline style for strike-through if completed
+        if (todo.completed) li.style.textDecoration = "line-through";
+
+        li.innerHTML = `
+            <span>${todo.text}</span>
+            <div>
+                <button onclick="toggleTodo(${todo.id})">✓</button>
+                <button onclick="deleteTodo(${todo.id})">✕</button>
+            </div>
+        `;
+        todoList.appendChild(li);
+    });
+}
+
+// 3. Action Functions (Modify the State, then Re-render)
+
+window.addTodo = () => {
+    const input = document.getElementById('todoInput');
+    const text = input.value.trim();
+    
+    if (text) {
+        appState.todos.push({
+            id: Date.now(),
+            text: text,
+            completed: false
+        });
+        input.value = "";
+        syncAndRender();
+    }
+};
+
+window.toggleTodo = (id) => {
+    appState.todos = appState.todos.map(t => 
+        t.id === id ? { ...t, completed: !t.completed } : t
+    );
+    syncAndRender();
+};
+
+window.deleteTodo = (id) => {
+    appState.todos = appState.todos.filter(t => t.id !== id);
+    syncAndRender();
+};
+
+window.setFilter = (newFilter) => {
+    appState.filter = newFilter;
+    syncAndRender();
+};
+
+// ==========================================
+// TASK 13.3: SESSION STORAGE (Auto-Save Form)
+// ==========================================
+
+const contactForm = document.getElementById("contact-form");
+const formInputs = contactForm.querySelectorAll("input, textarea");
+
+// On Load: Fill form with data from current session
+formInputs.forEach(input => {
+    const savedValue = sessionStorage.getItem(`form_${input.name}`);
+    if (savedValue) {
+        input.value = savedValue;
+    }
+
+    // On Input: Save to SessionStorage (Temporary)
+    input.addEventListener("input", () => {
+        sessionStorage.setItem(`form_${input.name}`, input.value);
+    });
+});
+
+// Clear SessionStorage on form submission
+contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Draft Processed and Session Cleared!");
+    formInputs.forEach(input => {
+        sessionStorage.removeItem(`form_${input.name}`);
+        input.value = "";
+    });
+});
+
+// ==========================================
+// INITIALIZATION
+// ==========================================
+
+// Attach the add button listener
+document.getElementById('addBtn').addEventListener('click', window.addTodo);
+
+// Run the first render
+syncAndRender();
