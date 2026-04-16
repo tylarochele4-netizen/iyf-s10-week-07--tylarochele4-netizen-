@@ -42,6 +42,87 @@ function addNote() {
     }
 }
 
+
+// --- 1. Storage Configuration ---
+const STORAGE_KEY = "todos_archive";
+
+// --- 2. Helper Functions (Keep these!) ---
+function saveToStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function getFromStorage(key, defaultValue = null) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : defaultValue;
+}
+
+// --- 3. State ---
+// Load existing todos or start with an empty array
+let todos = getFromStorage(STORAGE_KEY, []);
+
+// --- 4. DOM Elements ---
+const todoInput = document.getElementById('todoInput'); // Make sure your HTML has this ID
+const addBtn = document.getElementById('addBtn');       // Make sure your HTML has this ID
+const todoList = document.getElementById('todoList');   // Make sure your HTML has this ID
+
+// --- 5. Functions ---
+
+function renderTodos() {
+    todoList.innerHTML = ""; 
+    
+    todos.forEach((todo) => {
+        const li = document.createElement('li');
+        
+        // If the task is completed, add a strike-through
+        if (todo.completed) {
+            li.style.textDecoration = "line-through";
+        }
+
+        li.innerHTML = `
+            <span>${todo.text}</span>
+            <button onclick="toggleTodo(${todo.id})">Done</button>
+            <button onclick="deleteTodo(${todo.id})">Delete</button>
+        `;
+        todoList.appendChild(li);
+    });
+}
+
+function addTodo() {
+    const text = todoInput.value.trim();
+    if (text === "") return;
+
+    const newTodo = {
+        id: Date.now(),      // Unique ID for deleting/toggling
+        text: text,
+        completed: false
+    };
+
+    todos.push(newTodo);
+    saveToStorage(STORAGE_KEY, todos); // SAVE
+    renderTodos();                     // SHOW
+    todoInput.value = ""; 
+}
+
+// These need to be "window." so the HTML buttons can find them
+window.toggleTodo = function(id) {
+    todos = todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+    saveToStorage(STORAGE_KEY, todos);
+    renderTodos();
+}
+
+window.deleteTodo = function(id) {
+    todos = todos.filter(t => t.id !== id);
+    saveToStorage(STORAGE_KEY, todos);
+    renderTodos();
+}
+
+// --- 6. Event Listeners ---
+if (addBtn) {
+    addBtn.addEventListener('click', addTodo);
+}
+
+// Initial render when page opens
+renderTodos();
 // --- Event Listeners ---
 saveBtn.addEventListener('click', addNote);
 
