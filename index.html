@@ -3,23 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Archive: To-Do Edition</title>
+    <title>Task Archive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="todo-app">
-        <h2>Task Archive: To-Do Edition</h2>
-        
-        <div class="input-section">
-            <input type="text" id="todoInput" placeholder="Enter a task...">
-            <button id="addBtn">Add Task</button>
-        </div>
+    <div class="container">
+        <section id="todo-section">
+            <h2>Task Archive: To-Do</h2>
+            <div class="input-group">
+                <input type="text" id="todoInput" placeholder="What needs to be done?">
+                <button id="addBtn">Add Task</button>
+            </div>
+            <ul id="todoList"></ul>
+        </section>
 
-        <ul id="todoList">
-            </ul>
+        <hr>
+
+        <section id="contact-section">
+            <h2>Temporary Draft</h2>
+            <p><small>This disappears when you close the tab.</small></p>
+            <form id="contact-form">
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="userName" placeholder="Your Name">
+                </div>
+                <div class="field">
+                    <label>Quick Note</label>
+                    <textarea name="userMessage" placeholder="Type a draft..."></textarea>
+                </div>
+                <button type="submit">Submit Note</button>
+            </form>
+        </section>
     </div>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
