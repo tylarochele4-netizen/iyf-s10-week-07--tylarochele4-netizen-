@@ -1,38 +1,140 @@
+/* 1. Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef2f3; /* Light grey/blue background for the whole page */
     display: flex;
     justify-content: center;
-    padding: 20px;
+    align-items: flex-start; /* Keeps it at the top when the list gets long */
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
 }
 
+/* 2. The Main Box (Card) */
 .container {
     background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 500px;
+    padding: 30px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
-h2 { color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 10px; }
+/* 3. Header Styling */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-/* To-Do Styling */
-.input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-input[type="text"], textarea { 
-    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
-}
-button { 
-    padding: 10px 15px; cursor: pointer; border: none; 
-    border-radius: 5px; background: #1a73e8; color: white; 
-}
-li { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 8px 0; border-bottom: 1px solid #eee; 
-}
-.completed span { text-decoration: line-through; color: gray; }
+h1 { margin: 0; color: #2c3e50; }
+header p { color: #7f8c8d; font-size: 0.9rem; }
 
-/* Form Styling */
-.field { margin-top: 15px; }
-label { display: block; font-weight: bold; margin-bottom: 5px; }
-hr { margin: 30px 0; border: 0; border-top: 1px solid #ddd; }
+h2 {
+    font-size: 1.2rem;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 4. Input & Button Styling */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input[type="text"], 
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #edeff2;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* 5. Filter Group Buttons */
+.filter-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 5px;
+}
+
+.filter-group button {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.filter-group button:hover {
+    background-color: #bdc3c7;
+    color: white;
+}
+
+/* 6. List Styling */
+#todoList {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #fdfdfd;
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #3498db; /* Blue accent on tasks */
+}
+
+/* 7. Form Layout */
+.field {
+    margin-top: 15px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+
+hr {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+#submitBtn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #2ecc71; /* Green for submit */
+}
+
+#submitBtn:hover {
+    background-color: #27ae60;
+}
