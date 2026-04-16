@@ -9,30 +9,46 @@
 <body>
 
     <div class="container">
+        <header>
+            <h1>Task Archive</h1>
+            <p>Managing state and persistence.</p>
+        </header>
+
         <section id="todo-section">
-            <h2>Task Archive: To-Do</h2>
+            <h2><span class="icon">📁</span> Permanent Records</h2>
             <div class="input-group">
-                <input type="text" id="todoInput" placeholder="What needs to be done?">
-                <button id="addBtn">Add Task</button>
+                <input type="text" id="todoInput" placeholder="Add a new task...">
+                <button id="addBtn">Add</button>
             </div>
-            <ul id="todoList"></ul>
+
+            <div class="filter-group">
+                <button onclick="setFilter('all')">All</button>
+                <button onclick="setFilter('active')">Active</button>
+                <button onclick="setFilter('completed')">Completed</button>
+            </div>
+
+            <ul id="todoList">
+                </ul>
         </section>
 
         <hr>
 
         <section id="contact-section">
-            <h2>Temporary Draft</h2>
-            <p><small>This disappears when you close the tab.</small></p>
+            <h2><span class="icon">📝</span> Temporary Draft</h2>
+            <p><small>Self-clears when you close the browser tab.</small></p>
+            
             <form id="contact-form">
                 <div class="field">
-                    <label>Name</label>
-                    <input type="text" name="userName" placeholder="Your Name">
+                    <label for="userName">Name</label>
+                    <input type="text" id="userName" name="userName" placeholder="Your Name">
                 </div>
+                
                 <div class="field">
-                    <label>Quick Note</label>
-                    <textarea name="userMessage" placeholder="Type a draft..."></textarea>
+                    <label for="userMessage">Quick Note</label>
+                    <textarea id="userMessage" name="userMessage" placeholder="Type something..."></textarea>
                 </div>
-                <button type="submit">Submit Note</button>
+                
+                <button type="submit" id="submitBtn">Submit Draft</button>
             </form>
         </section>
     </div>
