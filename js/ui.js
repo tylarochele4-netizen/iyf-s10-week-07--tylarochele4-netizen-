@@ -1,4 +1,7 @@
 // This function draws the tasks to the screen
+
+console.table(todos);
+
 export function renderTodos(todos, filter, elementId) {
     const todoList = document.getElementById(elementId);
     if (!todoList) return;
