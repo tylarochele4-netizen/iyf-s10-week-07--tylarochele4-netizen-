@@ -29,6 +29,6 @@ export function toggleTodo(id) {
 
 // Logic for deleting a task
 export function deleteTodo(id) {
-    appState.todos = appState.todos.filter(todo => todo.id !=== id);
+    appState.todos = appState.todos.filter(todo => todo.id !== id);
     storage.save("todos_archive", appState.todos);
 }
