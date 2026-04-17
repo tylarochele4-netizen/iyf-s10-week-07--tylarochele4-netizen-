@@ -20,7 +20,7 @@ export function addTodo(text) {
 
 // Logic for toggling a task
 export function toggleTodo(id) {
-    const todo = appState.todos.find(t => t.id === id);
+    const todo = appState.todos.find(todo => todo.id === id);
     if (todo) {
         todo.completed = !todo.completed;
         storage.save("todos_archive", appState.todos);
@@ -29,6 +29,6 @@ export function toggleTodo(id) {
 
 // Logic for deleting a task
 export function deleteTodo(id) {
-    appState.todos = appState.todos.filter(t => t.id !== id);
+    appState.todos = appState.todos.filter(todo => todo.id !=== id);
     storage.save("todos_archive", appState.todos);
 }
