@@ -10,7 +10,7 @@ renderTodos(appState.todos, appState.filter, 'todoList');
 
 // 2. Event: Adding a Task
 addBtn.addEventListener('click', () => {
-    addTodo(todoInput.value);
+    addTodo(todoInput.value.trim());
     todoInput.value = "";
     renderTodos(appState.todos, appState.filter, 'todoList');
 });
